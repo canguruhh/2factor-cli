@@ -4,7 +4,6 @@
   "description": "",
   "main": "2factor-cli.js",
     "scripts": {
-        "test": "mocha test"
     },
   "bin": {
     "2factor-cli": "2factor-cli.js"
