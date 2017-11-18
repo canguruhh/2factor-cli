@@ -3,6 +3,7 @@
 var base32 = require('thirty-two');
 var tfa = require('2fa');
 var fs = require('fs');
+var homedir = require('homedir')()
 
 // Array Remove - By John Resig (MIT Licensed)
 Array.prototype.remove = function(from, to) {
@@ -15,9 +16,11 @@ var argv = require('minimist')(process.argv.slice(2));
 
 var tfa_config = require('./config/tfa.js');
 
-var data_path = "~/.config/2factor-cli/providers.json"
+var data_path = homedir+"/.config/2factor/providers.json"
 
-var providers = require(data_path);
+checkConfig();
+
+var providers = readProviders();
 
 switch(argv._[0]){
 case 'a':
@@ -83,6 +86,19 @@ function addProvider(name,secret){
             resolve(provider);
         }
     });
+}
+
+function checkConfig() {
+  if(!fs.existsSync(homedir+"/.config"))
+      	fs.mkdirSync(homedir+"/.config");
+  if(!fs.existsSync(homedir+"/.config/2factor"))
+      	fs.mkdirSync(homedir+"/.config/2factor");
+  if(!fs.existsSync(data_path))
+    		fs.writeFileSync(data_path, "[]");
+}
+
+function readProviders() {
+  return JSON.parse(fs.readFileSync(data_path));
 }
 
 function notexistsProvider(name){
