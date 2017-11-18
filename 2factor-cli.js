@@ -15,7 +15,9 @@ var argv = require('minimist')(process.argv.slice(2));
 
 var tfa_config = require('./config/tfa.js');
 
-var providers = require('./data/providers.json');
+var data_path = "~/.config/2factor-cli/providers.json"
+
+var providers = require(data_path);
 
 switch(argv._[0]){
 case 'a':
@@ -44,6 +46,11 @@ case 'names':
     providers.map((provider)=>{
         console.log(provider.name);
     });
+    break;
+case 'init':
+case 'reset':
+    saveProviders([])
+        .then(()=>console.info('providers initialized'))
     break;
 case 'l':
 case 'list':
@@ -108,7 +115,7 @@ function getProvider(name){
 
 function saveProviders(){
     return new Promise((resolve,reject)=>{
-        fs.writeFile("data/providers.json", JSON.stringify(providers), function(err){
+        fs.writeFile(data_path, JSON.stringify(providers), function(err){
             if(err){
                 reject(Error(err));
             } else {
