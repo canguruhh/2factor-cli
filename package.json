@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "2factor-cli": "2factor-cli.js"
+  },
   "author": "Sven Mutzl",
   "license": "GPL-3.0",
   "dependencies": {
