@@ -1,0 +1,15 @@
+{
+  "name": "2factor-cli",
+  "version": "0.1.1",
+  "description": "",
+  "main": "2factor-cli.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sven Mutzl",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "2fa": "^0.1.2",
+    "minimist": "^1.2.0"
+  }
+}
