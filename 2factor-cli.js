@@ -4,6 +4,8 @@ var base32 = require('thirty-two');
 var tfa = require('2fa');
 var fs = require('fs');
 var homedir = require('homedir')()
+var argv = require('minimist')(process.argv.slice(2));
+var tfa_config = require('./config/tfa.js');
 
 // Array Remove - By John Resig (MIT Licensed)
 Array.prototype.remove = function(from, to) {
@@ -12,15 +14,11 @@ Array.prototype.remove = function(from, to) {
     return this.push.apply(this, rest);
 };
 
-var argv = require('minimist')(process.argv.slice(2));
-
-var tfa_config = require('./config/tfa.js');
-
+//Get or initialize provider settings
 var data_path = homedir+"/.config/2factor/providers.json"
-
 checkConfig();
-
 var providers = readProviders();
+
 
 switch(argv._[0]){
 case 'a':
